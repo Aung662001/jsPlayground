@@ -1,5 +1,6 @@
 const refreshBtn = document.querySelector(".refresh-btn");
 const container = document.querySelector(".container");
+const time = document.querySelector(".time");
 const generatePlates = () => {
   container.innerHTML = "";
   for (let index = 0; index < 21; index++) {
@@ -18,6 +19,9 @@ const generatePlates = () => {
   }
 };
 generatePlates();
+setInterval(() => {
+  generatePlates();
+}, 1000 * 10);
 const copyColor = (element, color) => {
   const colorElem = element.querySelector(".hex-value");
   navigator.clipboard.writeText(color).then(() => {
@@ -29,4 +33,12 @@ const copyColor = (element, color) => {
     }, 1000);
   });
 };
+let timeText = 10;
+setInterval(() => {
+  timeText = timeText - 1;
+  time.innerText = timeText;
+  if (timeText <= 0) {
+    timeText = 10;
+  }
+}, 1000);
 refreshBtn.addEventListener("click", generatePlates);

@@ -66,3 +66,9 @@ body {
 .refresh-btn:hover {
   filter: brightness(40%);
 }
+.scroll-text {
+  position: absolute;
+  left: 3rem;
+  font-size: 1.5rem;
+  white-space: nowrap;
+}
