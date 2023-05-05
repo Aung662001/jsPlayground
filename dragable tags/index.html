@@ -15,6 +15,7 @@
       .wrapper {
         background-color: gray;
         position: relative;
+        border-radius: 10px;
       }
       .tabs-box {
         user-select: none;
@@ -37,6 +38,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
+      }
+      .tab:hover {
+        background-color: rgb(188, 224, 238);
       }
       .icon {
         user-select: none;
@@ -63,6 +67,12 @@
       .dragging {
         scroll-behavior: auto;
       }
+      .dragging .tab {
+        pointer-events: none;
+      }
+      .active {
+        background-color: skyblue;
+      }
     </style>
   </head>
   <body>
@@ -88,6 +98,7 @@
       tabsBox.addEventListener("mousemove", (e) => {
         if (!isDragging) return;
         tabsBox.classList.add("dragging");
+        console.log(e.movementX);
         tabsBox.scrollLeft -= e.movementX;
         handleIcons();
       });
@@ -97,13 +108,13 @@
         isDragging = true;
       }
       function stopDrap() {
+        tabsBox.classList.remove("dragging");
         isDragging = false;
       }
 
       const icons = document.querySelectorAll(".icon");
       icons.forEach((icon) => {
         icon.addEventListener("click", () => {
-          tabsBox.classList.remove("dragging");
           tabsBox.scrollLeft += icon.id === "left" ? -300 : 300;
           handleIcons();
         });
@@ -116,6 +127,14 @@
         icons[1].style.display =
           scrollValue >= maxScrollableWidth ? "none" : "flex";
       }
+
+      const tab = document.querySelectorAll(".tab");
+      tab.forEach((t) => {
+        t.addEventListener("click", () => {
+          tab.forEach((ta) => ta.classList.remove("active"));
+          t.classList.add("active");
+        });
+      });
     </script>
   </body>
 </html>
