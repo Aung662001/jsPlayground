@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .wrapper {
+        background-color: gray;
+        position: relative;
+      }
+      .tabs-box {
+        user-select: none;
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        max-width: 400px;
+        overflow: hidden;
+        scroll-behavior: smooth;
+        padding-right: 20px;
+      }
+      .tab {
+        line-height: 10px;
+        border: 1px solid black;
+        border-radius: 30px;
+        margin: 10px;
+        padding: 10px 15px 10px 15px;
+        white-space: nowrap;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon {
+        user-select: none;
+        position: absolute;
+        height: 100%;
+        width: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 900;
+        font-size: 2rem;
+      }
+      .icon.right-icon {
+        background: linear-gradient(90deg, gray, white);
+        right: 0;
+      }
+      .icon.left-icon {
+        background: linear-gradient(90deg, white, gray);
+        left: 0;
+      }
+      .dragging {
+        scroll-behavior: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <span class="left-icon icon" id="left"> <bold><</bold></span>
+      <ul class="tabs-box">
+        <li class="tab">Codding</li>
+        <li class="tab">Eatting</li>
+        <li class="tab">Drinking</li>
+        <li class="tab">Comic</li>
+        <li class="tab">Movies</li>
+        <li class="tab">Musics</li>
+        <li class="tab">Boxing</li>
+        <li class="tab">Body Bulding</li>
+        <li class="tab">Cycling</li>
+        <li class="tab">Gaming</li>
+      </ul>
+      <span class="right-icon icon" id="right">></span>
+    </div>
+    <script>
+      let isDragging = false;
+      const tabsBox = document.querySelector(".tabs-box");
+      tabsBox.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        tabsBox.classList.add("dragging");
+        tabsBox.scrollLeft -= e.movementX;
+        handleIcons();
+      });
+      tabsBox.addEventListener("mousedown", drag);
+      document.addEventListener("mouseup", stopDrap);
+      function drag() {
+        isDragging = true;
+      }
+      function stopDrap() {
+        isDragging = false;
+      }
+
+      const icons = document.querySelectorAll(".icon");
+      icons.forEach((icon) => {
+        icon.addEventListener("click", () => {
+          tabsBox.classList.remove("dragging");
+          tabsBox.scrollLeft += icon.id === "left" ? -300 : 300;
+          handleIcons();
+        });
+      });
+
+      function handleIcons() {
+        let scrollValue = Math.ceil(tabsBox.scrollLeft);
+        let maxScrollableWidth = tabsBox.scrollWidth - tabsBox.clientWidth;
+        icons[0].style.display = scrollValue <= 0 ? "none" : "flex";
+        icons[1].style.display =
+          scrollValue >= maxScrollableWidth ? "none" : "flex";
+      }
+    </script>
+  </body>
+</html>

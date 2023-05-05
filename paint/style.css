@@ -1,0 +1,150 @@
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.circle {
+  width: 20px;
+  height: 20px;
+}
+body {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: skyblue;
+}
+.container {
+  user-select: none;
+  width: 100%;
+  gap: 10px;
+  padding: 10px;
+  display: flex;
+  max-width: 1080px;
+}
+section {
+  border-radius: 10px;
+  background-color: #fff;
+}
+.controller {
+  width: 210px;
+  padding: 15px 22px 0;
+}
+.controller .rows {
+  margin-bottom: 20px;
+}
+.controller .rows .options {
+  list-style: none;
+  margin: 10px 0 0 5px;
+}
+.options .option {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.option :where(span, label) {
+  color: gray;
+  cursor: pointer;
+  padding-left: 10px;
+}
+.option #fill-color {
+  width: 14px;
+  height: 14px;
+}
+.option:is(:hover, .active) svg {
+  /* border: 3px solid blue; */
+  fill: skyblue;
+}
+.option:is(:hover, .active) svg path {
+  fill: skyblue;
+}
+.option:is(:hover, .active) svg.triangle path {
+  fill: none;
+  stroke: skyblue;
+}
+.option:is(:hover, .active) :where(span, label) {
+  color: skyblue;
+}
+#fill-color:checked ~ label {
+  color: skyblue;
+}
+#size-slider {
+  width: 100%;
+  height: 5px;
+  margin-top: 10px;
+}
+.rows.colors ul {
+  display: flex;
+  justify-content: space-around;
+}
+.colors li {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  position: relative;
+}
+.colors li:nth-child(1) {
+  background-color: white;
+  border: 1px solid gray;
+}
+.colors li:nth-child(2) {
+  background-color: black;
+}
+.colors li:nth-child(3) {
+  background-color: green;
+}
+.colors li:nth-child(4) {
+  background-color: blue;
+}
+.colors li:nth-child(5) {
+  background-color: #dc5b5b;
+}
+.colors ul li input {
+  opacity: 0;
+  cursor: pointer;
+}
+.colors .option:first-child.selected::before {
+  border-color: gray;
+}
+
+.colors li.selected::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 2px solid white;
+  width: 12px;
+  height: 12px;
+  background-color: inherit;
+  border-radius: inherit;
+  transform: translate(-50%, -50%);
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+.buttons button {
+  width: 100%;
+  background-color: skyblue;
+  height: 30px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+.buttons button:hover {
+  filter: brightness(90%);
+}
+
+.drawing-board {
+  flex: 1;
+}
+.drawing-board canvas {
+  width: 100%;
+  height: 100%;
+}

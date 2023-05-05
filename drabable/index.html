@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      display: flex;
+      width: 1000px;
+      height: 1000px;
+    }
+    .wrapper {
+      background-color: blueviolet;
+      cursor: move;
+      width: max-content;
+      height: fit-content;
+      left: 500px;
+      top: 500px;
+      position: relative;
+      user-select: none;
+    }
+  </style>
+  <body>
+    <div class="wrapper">
+      <h1>Hello Drabable</h1>
+    </div>
+    <script>
+      let wrapper = document.querySelector(".wrapper");
+      wrapper.addEventListener("mousedown", () => {
+        wrapper.addEventListener("mousemove", Drag);
+      });
+      document.addEventListener("mouseup", () => {
+        wrapper.removeEventListener("mousemove", Drag);
+      });
+      const Drag = (e) => {
+        let style = window.getComputedStyle(wrapper);
+        let left = parseInt(style.left);
+        let top = parseInt(style.top);
+        let moveX = e.movementX;
+        let moveT = e.movementY;
+        wrapper.style.left = `${left + moveX}px`;
+        wrapper.style.top = `${top + moveT}px`;
+      };
+    </script>
+  </body>
+</html>
