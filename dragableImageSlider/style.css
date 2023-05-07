@@ -31,7 +31,7 @@ body {
 .coursel img {
   width: calc(100% / 3);
   height: 200px;
-  margin: 5px;
+  margin: 0 5px;
   object-fit: cover;
   cursor: pointer;
 }

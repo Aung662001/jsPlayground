@@ -1,12 +1,13 @@
 const coursel = document.querySelector(".coursel");
 const icons = document.querySelectorAll(".wrapper i");
-const img = document.querySelectorAll("img")[0];
+const img = document.querySelectorAll("img")[2];
 
 const width = img.clientWidth + 10;
+console.log(width);
 icons.forEach((i) => {
   i.addEventListener("click", () => {
-    console.log(width);
     coursel.scrollLeft += i.id === "left" ? -width : width;
+    showHideIcons();
   });
 });
 
@@ -16,6 +17,7 @@ let dragging = false,
   positionDiff;
 
 const dragStart = (e) => {
+  e.preventDefault();
   prePageX = e.pageX;
   preScrollLeft = coursel.scrollLeft;
   dragging = true;
@@ -35,20 +37,27 @@ function drag(e) {
   coursel.scrollLeft = preScrollLeft - positionDiff;
 }
 coursel.addEventListener("mousedown", dragStart);
-document.addEventListener("mouseup", dragStop);
+coursel.addEventListener("mouseup", dragStop);
 // coursel.addEventListener("mouseleave", dragStop);
 
 const autoSlide = () => {
+  if (coursel.scrollLeft >= coursel.scrollWidth - coursel.clientWidth - 100)
+    return;
   positionDiff = Math.abs(positionDiff);
   const neededValue = width - positionDiff;
   if (coursel.scrollLeft > preScrollLeft) {
-    console.log("right");
     // console.log(positionDiff, width / 3);
     return (coursel.scrollLeft +=
       positionDiff > width / 3 ? neededValue : -positionDiff);
   } else {
-    console.log("left");
     return (coursel.scrollLeft -=
       positionDiff > width / 3 ? neededValue : -positionDiff);
   }
+};
+
+const showHideIcons = () => {
+  let avaiableScroll = coursel.scrollWidth - coursel.clientWidth;
+  icons[1].style.display =
+    coursel.scrollLeft >= avaiableScroll - 100 ? "none" : "block";
+  icons[0].style.display = coursel.scrollLeft == 0 ? "none" : "block";
 };
